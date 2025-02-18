@@ -1,0 +1,37 @@
+﻿@using MvcNetCoreSession.Helpers
+@{
+    string data = Context.Session.GetString("MASCOTA");
+    Mascota mascota=new Mascota();
+    if(Context.Session.Get("MASCOTA")!=null){
+        mascota = HelperJSONSession.DeserializeObject<Mascota>(data) as Mascota;
+    }
+}
+<h1>Ejemplos session</h1>
+<h2 style="color:blue">
+    @Context.Session.GetString("nombre")
+</h2>
+<h2 style="color:blue">
+    @Context.Session.GetString("hora")
+</h2>
+<h2 style="color:red">
+    @mascota.Nombre
+</h2>
+<ul class="list-group">
+    <li class="list-group-item">
+        <a asp-controller="EjemploSession" asp-action="SessionSimple">
+            Session simple
+        </a>
+    </li>
+    <li class="list-group-item">
+        <a asp-controller="EjemploSession" asp-action="SessionMascota">Mascota</a>
+    </li>
+    <li class="list-group-item">
+        <a asp-controller="EjemploSession" asp-action="SessionCollection">Collection</a>
+    </li>
+    <li class="list-group-item">
+        <a asp-controller="EjemploSession" asp-action="SessionMascotaJson">Mascota</a>
+    </li>
+    <li class="list-group-item">
+        <a asp-controller="EjemploSession" asp-action="SessionMascotaObject">Mascota</a>
+    </li>
+</ul>

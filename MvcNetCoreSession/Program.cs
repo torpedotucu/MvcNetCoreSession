@@ -3,6 +3,15 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+//DEBEMOS HABILITAR EL SERVICIO DE MEMORIA CAHCE PORQUE COMPARTEN CARACTERISTICAS
+builder.Services.AddDistributedMemoryCache();
+//CONFIGURAR SESSION CON UN TIEMPO DE INACTIVIDAD
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout=TimeSpan.FromMinutes(10);
+});
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -19,6 +28,9 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapStaticAssets();
+
+//HABILITAMOS SESSION PARA EL SERVIDOR
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",
