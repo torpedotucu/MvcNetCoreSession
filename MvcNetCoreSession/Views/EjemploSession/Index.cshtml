@@ -1,10 +1,8 @@
-﻿@using MvcNetCoreSession.Helpers
+﻿@model List<Mascota>
+@using MvcNetCoreSession.Helpers
+@using MvcNetCoreSession.Extensions
 @{
-    string data = Context.Session.GetString("MASCOTA");
-    Mascota mascota=new Mascota();
-    if(Context.Session.Get("MASCOTA")!=null){
-        mascota = HelperJSONSession.DeserializeObject<Mascota>(data) as Mascota;
-    }
+    Mascota mascota = Context.Session.GetObject<Mascota>("MASCOTAOBJECT");
 }
 <h1>Ejemplos session</h1>
 <h2 style="color:blue">
@@ -14,8 +12,13 @@
     @Context.Session.GetString("hora")
 </h2>
 <h2 style="color:red">
-    @mascota.Nombre
+    @* @mascota.Nombre *@
 </h2>
+@if(Model!=null){
+    <h1>Mascotas recuperadas: @Model.Count</h1>
+}else{
+    <h1>No tenemos mascotas en el helper</h1>
+}
 <ul class="list-group">
     <li class="list-group-item">
         <a asp-controller="EjemploSession" asp-action="SessionSimple">
@@ -29,9 +32,12 @@
         <a asp-controller="EjemploSession" asp-action="SessionCollection">Collection</a>
     </li>
     <li class="list-group-item">
-        <a asp-controller="EjemploSession" asp-action="SessionMascotaJson">Mascota</a>
+        <a asp-controller="EjemploSession" asp-action="SessionMascotaJson">Mascota JSON</a>
     </li>
     <li class="list-group-item">
-        <a asp-controller="EjemploSession" asp-action="SessionMascotaObject">Mascota</a>
+        <a asp-controller="EjemploSession" asp-action="SessionMascotaObject">Mascota Object</a>
+    </li>
+    <li class="list-group-item">
+        <a asp-controller="EjemploSession" asp-action="SessionMascotaCollection">Mascota Colleccion</a>
     </li>
 </ul>

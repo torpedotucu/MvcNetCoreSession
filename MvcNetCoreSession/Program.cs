@@ -1,7 +1,12 @@
+using MvcNetCoreSession.Helpers;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddSingleton<HelperSessionContextAccesor>();
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 //DEBEMOS HABILITAR EL SERVICIO DE MEMORIA CAHCE PORQUE COMPARTEN CARACTERISTICAS
 builder.Services.AddDistributedMemoryCache();
